@@ -52,7 +52,7 @@ SpendWise/
 
 ### 1️⃣ Clone the Repository
 
-git clone https://github.com/your-username/SpendWise.git  
+git clone https://github.com/Bhavith-fs/SpendWise.git  
 cd SpendWise  
 
 ### 2️⃣ Open the App
