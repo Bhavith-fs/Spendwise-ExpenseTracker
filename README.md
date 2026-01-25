@@ -60,3 +60,7 @@ It helps users **record, categorize, and visualize expenses**, giving insights i
 
 ## 📁 Project Structure
 
+SpendWise/
+├── index.html   # App structure
+├── style.css    # Styling & responsive design
+├── script.js    # App logic & functionality
