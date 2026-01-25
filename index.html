@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendWise - Daily Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 SpendWise</h1>
+            <p>Track your daily expenses wisely</p>
+            <button id="darkModeToggle" class="dark-mode-toggle">🌙</button>
+        </header>
+
+        <main>
+            <!-- Add Expense Section -->
+            <section class="add-expense-section">
+                <h2>Add New Expense</h2>
+                <form id="expenseForm">
+                    <div class="form-group">
+                        <label for="title">Expense Title (Optional)</label>
+                        <input type="text" id="title" placeholder="e.g., Coffee at Starbucks">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="amount">Amount *</label>
+                        <input type="number" id="amount" placeholder="0.00" step="0.01" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category">Category *</label>
+                        <select id="category" required>
+                            <option value="">Select Category</option>
+                            <option value="Food">🍔 Food</option>
+                            <option value="Travel">✈️ Travel</option>
+                            <option value="Bills">📄 Bills</option>
+                            <option value="Shopping">🛍️ Shopping</option>
+                            <option value="Other">📦 Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date">Date *</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Add Expense</button>
+                </form>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="summary-section">
+                <h2>Expense Summary</h2>
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <h3>Today's Total</h3>
+                        <p id="todayTotal">$0.00</p>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Monthly Total</h3>
+                        <p id="monthlyTotal">$0.00</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filter Section -->
+            <section class="filter-section">
+                <h2>Filter Expenses</h2>
+                <div class="filter-controls">
+                    <select id="categoryFilter">
+                        <option value="all">All Categories</option>
+                        <option value="Food">🍔 Food</option>
+                        <option value="Travel">✈️ Travel</option>
+                        <option value="Bills">📄 Bills</option>
+                        <option value="Shopping">🛍️ Shopping</option>
+                        <option value="Other">📦 Other</option>
+                    </select>
+                    <button id="clearAllBtn" class="btn btn-danger">Clear All Expenses</button>
+                </div>
+            </section>
+
+            <!-- Category Breakdown -->
+            <section class="category-breakdown">
+                <h2>Category Breakdown</h2>
+                <div id="categoryBars"></div>
+            </section>
+
+            <!-- Expenses List -->
+            <section class="expenses-list-section">
+                <h2>Expense List</h2>
+                <div id="expensesList" class="expenses-list">
+                    <p class="no-expenses">No expenses yet. Add your first expense above!</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
