@@ -1,13 +1,8 @@
-<h1 align="center">💸 SpendWise – Daily Expense Tracker 🚀</h1>
+<h1 align="center">💸 SpendWise – Daily Expense Tracker</h1>
 
 <div align="center">
 
-*A simple web app to track, categorize, and summarize your daily expenses.*
-
-![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
-![LocalStorage](https://img.shields.io/badge/Storage-localStorage-000000?style=for-the-badge)
+A simple, responsive daily expense tracker built using HTML, CSS, and Vanilla JavaScript.
 
 </div>
 
@@ -15,99 +10,83 @@
 
 ## 🎯 Overview
 
-**SpendWise** is a lightweight, responsive **daily expense tracker** built using **HTML, CSS, and Vanilla JavaScript**.  
-It helps users **record, categorize, and visualize expenses**, giving insights into daily and monthly spending habits.
-
-> 💡 **Why SpendWise?** Most people spend money daily but rarely track it. SpendWise makes **expense tracking effortless and practical** without any backend or login.
+SpendWise is a lightweight web application that helps users track daily expenses, categorize spending, and view total expenses.  
+All data is stored locally using browser localStorage, making it fast, private, and easy to use without any backend.
 
 ---
 
-## ✨ Key Features
+## ✨ Features
 
-- ➕ Add daily expenses with **amount, category, title (optional), and date**  
-- 🗂️ Categorize expenses: **Food, Travel, Bills, Shopping, Other**  
-- 📋 View **all expenses** in a clean, interactive table  
-- ❌ Delete individual expenses instantly  
-- 📊 Track **today’s total** and **monthly total**  
-- 🧩 Category-wise spending breakdown  
-- 💾 Persistent storage using **browser localStorage**  
-- 📱 Fully responsive and mobile-friendly design  
-
----
-
-## 🧠 How It Works
-
-1. 📝 User inputs an expense (title, amount, category, date)  
-2. 💾 Expense is saved in **localStorage**  
-3. 📋 Expense list updates dynamically with totals  
-4. ❌ User can delete expenses  
-5. 📊 Totals and category summaries update automatically  
+- Add expenses with title, amount, category, and date  
+- Categories: Food, Travel, Bills, Shopping, Other  
+- View all expenses in a clean list  
+- Delete individual expenses  
+- Automatically calculate today’s and monthly totals  
+- Category-wise spending breakdown  
+- Data persists using localStorage  
+- Fully responsive and mobile-friendly UI  
 
 ---
 
 ## 🛠 Tech Stack
 
-| Layer | Technology |
-|-------|------------|
-| 🎨 Frontend | HTML, CSS, JavaScript |
-| 💾 Storage | Browser localStorage |
-| 📱 UI/UX | Responsive, clean layout |
-| ⚙ Logic | DOM manipulation, arrays & objects, events |
+- HTML  
+- CSS  
+- Vanilla JavaScript  
+- Browser localStorage  
 
-> ❌ No backend | ❌ No frameworks | ❌ No external libraries
+No frameworks. No backend. No external libraries.
 
 ---
 
 ## 📁 Project Structure
 
 SpendWise/
-├── index.html   # App structure
-├── style.css    # Styling & responsive design
-├── script.js    # App logic & functionality
-
+├── index.html   # Main HTML structure
+├── style.css    # Styles and responsive design
+├── script.js    # App logic, DOM manipulation, localStorage
 
 ---
 
 ## 🚀 Getting Started
 
 ### 1️⃣ Clone the Repository
-```bash
-git clone https://github.com/your-username/SpendWise.git
-cd SpendWise
 
-2️⃣ Open the App
+git clone https://github.com/your-username/SpendWise.git  
+cd SpendWise  
 
-Simply open index.html in any modern browser
+### 2️⃣ Open the App
 
+Open index.html in any modern browser  
 No server or installation required
 
-🧪 Optional Enhancements
+---
 
-🔍 Filter expenses by category
+## 🧪 Optional Enhancements
 
-🗑️ Clear all expenses button
+- Filter expenses by category  
+- Clear all expenses button  
+- Light / Dark mode toggle  
+- Visual charts for category spending  
 
-🌙 Light / Dark mode toggle
+---
 
-📈 Simple charts for category spending
+## 🎓 Use Cases
 
-🎓 Use Cases
+Students — Track daily expenses and manage pocket money  
+Professionals — Get monthly overview for budgeting  
+Beginners — Learn practical JavaScript and DOM skills  
+Everyone — Build better financial habits  
 
-🧑‍🎓 Students — Track daily expenses and manage pocket money
+---
 
-💼 Professionals — Monthly overview for better budgeting
+## 👨‍💻 Author
 
-👨‍💻 Beginners — Learn real-world JavaScript and DOM manipulation
+Bhavith Madhav  
+Cybersecurity & Tech Enthusiast | Web Development Learner  
 
-🌐 Everyone — Build healthier money habits
+---
 
-👨‍💻 Author
+## 📄 License
 
-Bhavith Madhav
-Cybersecurity & Tech Enthusiast | Web Dev Learner
-
-📄 License
-
-This project is open-source and available under the MIT License
-
-
+This project is open-source and available under the MIT License.
