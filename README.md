@@ -75,3 +75,39 @@ SpendWise/
 git clone https://github.com/your-username/SpendWise.git
 cd SpendWise
 
+2️⃣ Open the App
+
+Simply open index.html in any modern browser
+
+No server or installation required
+
+🧪 Optional Enhancements
+
+🔍 Filter expenses by category
+
+🗑️ Clear all expenses button
+
+🌙 Light / Dark mode toggle
+
+📈 Simple charts for category spending
+
+🎓 Use Cases
+
+🧑‍🎓 Students — Track daily expenses and manage pocket money
+
+💼 Professionals — Monthly overview for better budgeting
+
+👨‍💻 Beginners — Learn real-world JavaScript and DOM manipulation
+
+🌐 Everyone — Build healthier money habits
+
+👨‍💻 Author
+
+Bhavith Madhav
+Cybersecurity & Tech Enthusiast | Web Dev Learner
+
+📄 License
+
+This project is open-source and available under the MIT License
+
+
