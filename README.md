@@ -64,3 +64,14 @@ SpendWise/
 ├── index.html   # App structure
 ├── style.css    # Styling & responsive design
 ├── script.js    # App logic & functionality
+
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/your-username/SpendWise.git
+cd SpendWise
+
