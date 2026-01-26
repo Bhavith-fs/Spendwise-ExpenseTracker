@@ -94,9 +94,8 @@ No server or installation required.
 ---
 
 ## 👨‍💻 Author
-
-Bhavith Madhav  
-Cybersecurity & Tech Enthusiast | Web Development Learner  
+**Bhavith Madhav**  
+Cybersecurity & Network Security Enthusiast
 
 ---
 
