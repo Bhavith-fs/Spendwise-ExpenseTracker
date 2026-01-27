@@ -4,6 +4,9 @@
 
 A simple, clean, and beginner-friendly daily expense tracking web app built using HTML, CSS, and Vanilla JavaScript.
 
+🌐 **Live Demo:**  
+👉 https://bhavith-fs.github.io/Spendwise-ExpenseTracker/
+
 ![HTML](https://img.shields.io/badge/HTML-Structure-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-Styling-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
@@ -57,9 +60,9 @@ UI: Responsive Design
 ## 📁 Project Structure
 
 SpendWise/
-├── index.html   # Main HTML structure
-├── style.css    # Styling and responsive design
-├── script.js    # App logic, DOM manipulation, localStorage
+├── index.html   # Main HTML structure  
+├── style.css    # Styling and responsive design  
+├── script.js    # App logic, DOM manipulation, localStorage  
 
 ---
 
@@ -94,8 +97,9 @@ No server or installation required.
 ---
 
 ## 👨‍💻 Author
+
 **Bhavith Madhav**  
-Cybersecurity & Network Security Enthusiast
+Cybersecurity & Network Security Enthusiast  
 
 ---
 
