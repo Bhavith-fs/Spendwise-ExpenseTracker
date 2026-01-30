@@ -19,7 +19,7 @@ A simple, clean, and beginner-friendly daily expense tracking web app built usin
 
 ## 🎯 Overview
 
-SpendWise is a lightweight, responsive daily expense tracker that helps users record, categorize, and analyze their spending habits.
+SpendWise is a lightweight, responsive daily expense tracker that helps users record, categorize, and analyze their spending habits. 
 
 Built using pure HTML, CSS, and Vanilla JavaScript with no external frameworks. All data is stored persistently using browser localStorage.
 
