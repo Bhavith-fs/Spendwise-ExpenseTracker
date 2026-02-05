@@ -4,72 +4,170 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpendWise - Daily Expense Tracker</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=5">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>💰 SpendWise</h1>
-            <p>Track your daily expenses wisely</p>
-            <button id="darkModeToggle" class="dark-mode-toggle">🌙</button>
-        </header>
+    <div class="app-container">
+        <!-- Animated Background -->
+        <div class="bg-animation">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+            <div class="floating-shape shape-4"></div>
+            <div class="floating-shape shape-5"></div>
+        </div>
 
-        <main>
-            <!-- Add Expense Section -->
-            <section class="add-expense-section">
-                <h2>Add New Expense</h2>
-                <form id="expenseForm">
-                    <div class="form-group">
-                        <label for="title">Expense Title (Optional)</label>
-                        <input type="text" id="title" placeholder="e.g., Coffee at Starbucks">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="amount">Amount *</label>
-                        <input type="number" id="amount" placeholder="0.00" step="0.01" min="0" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="category">Category *</label>
-                        <select id="category" required>
-                            <option value="">Select Category</option>
-                            <option value="Food">🍔 Food</option>
-                            <option value="Travel">✈️ Travel</option>
-                            <option value="Bills">📄 Bills</option>
-                            <option value="Shopping">🛍️ Shopping</option>
-                            <option value="Other">📦 Other</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="date">Date *</label>
-                        <input type="date" id="date" required>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">Add Expense</button>
-                </form>
-            </section>
+        <!-- Navigation Header -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <div class="brand-icon">💎</div>
+                <div class="brand-text">
+                    <h1>SpendWise</h1>
+                    <span>Smart Expense Tracking</span>
+                </div>
+            </div>
+            <div class="nav-actions">
+                <button id="darkModeToggle" class="theme-toggle">
+                    <span class="toggle-icon">🌙</span>
+                </button>
+                <button class="nav-menu-btn">☰</button>
+            </div>
+        </nav>
 
-            <!-- Summary Section -->
-            <section class="summary-section">
-                <h2>Expense Summary</h2>
-                <div class="summary-cards">
-                    <div class="summary-card">
-                        <h3>Today's Total</h3>
-                        <p id="todayTotal">$0.00</p>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section with Stats -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h2>Welcome back! 👋</h2>
+                        <p>Track your expenses like a pro</p>
                     </div>
-                    <div class="summary-card">
-                        <h3>Monthly Total</h3>
-                        <p id="monthlyTotal">$0.00</p>
+                    <div class="hero-stats">
+                        <div class="stat-card today-stat">
+                            <div class="stat-icon">📅</div>
+                            <div class="stat-content">
+                                <h3>Today</h3>
+                                <p id="todayTotal" class="stat-amount">$0.00</p>
+                            </div>
+                        </div>
+                        <div class="stat-card month-stat">
+                            <div class="stat-icon">📊</div>
+                            <div class="stat-content">
+                                <h3>This Month</h3>
+                                <p id="monthlyTotal" class="stat-amount">$0.00</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Filter Section -->
-            <section class="filter-section">
-                <h2>Filter Expenses</h2>
+            <!-- Quick Add Section -->
+            <section class="quick-add-section">
+                <div class="section-header">
+                    <h2>Quick Add Expense</h2>
+                    <button class="expand-btn">⚡</button>
+                </div>
+                <form id="expenseForm" class="expense-form">
+                    <div class="form-grid">
+                        <div class="form-group floating-label">
+                            <input type="text" id="title" placeholder=" " class="form-input">
+                            <label for="title" class="form-label">Expense Title</label>
+                            <span class="form-helper">e.g., Coffee at Starbucks</span>
+                        </div>
+                        
+                        <div class="form-group floating-label">
+                            <input type="number" id="amount" placeholder=" " step="0.01" min="0" class="form-input" required>
+                            <label for="amount" class="form-label required">Amount</label>
+                            <span class="currency-symbol">$</span>
+                        </div>
+                        
+                        <div class="form-group floating-label">
+                            <select id="category" class="form-input" required>
+                                <option value="">Select Category</option>
+                                <option value="Food">🍔 Food</option>
+                                <option value="Travel">✈️ Travel</option>
+                                <option value="Bills">📄 Bills</option>
+                                <option value="Shopping">🛍️ Shopping</option>
+                                <option value="Other">📦 Other</option>
+                            </select>
+                            <label for="category" class="form-label required">Category</label>
+                        </div>
+                        
+                        <div class="form-group floating-label">
+                            <input type="date" id="date" class="form-input" required>
+                            <label for="date" class="form-label required">Date</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="addExpenseBtn" class="btn-primary">
+                            <span class="btn-icon">➕</span>
+                            Add Expense
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Analytics Dashboard -->
+            <section class="analytics-section">
+                <div class="section-header">
+                    <h2>Analytics Dashboard</h2>
+                    <div class="period-selector">
+                        <button class="period-btn active">Week</button>
+                        <button class="period-btn">Month</button>
+                        <button class="period-btn">Year</button>
+                    </div>
+                </div>
+                
+                <div class="analytics-grid">
+                    <div class="chart-container">
+                        <h3>Spending by Category</h3>
+                        <div id="categoryChart" class="category-chart">
+                            <div id="categoryBars"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="insights-container">
+                        <h3>Key Insights</h3>
+                        <div class="insight-cards">
+                            <div class="insight-card">
+                                <div class="insight-icon">🔥</div>
+                                <div class="insight-content">
+                                    <h4>Highest Category</h4>
+                                    <p id="highestCategory">-</p>
+                                </div>
+                            </div>
+                            <div class="insight-card">
+                                <div class="insight-icon">📈</div>
+                                <div class="insight-content">
+                                    <h4>Avg Daily Spend</h4>
+                                    <p id="avgDailySpend">$0.00</p>
+                                </div>
+                            </div>
+                            <div class="insight-card">
+                                <div class="insight-icon">🎯</div>
+                                <div class="insight-content">
+                                    <h4>Total Expenses</h4>
+                                    <p id="totalExpenses">0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filter & Actions Bar -->
+            <section class="actions-bar">
                 <div class="filter-controls">
-                    <select id="categoryFilter">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search expenses..." class="search-input">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    <select id="categoryFilter" class="filter-select">
                         <option value="all">All Categories</option>
                         <option value="Food">🍔 Food</option>
                         <option value="Travel">✈️ Travel</option>
@@ -77,26 +175,49 @@
                         <option value="Shopping">🛍️ Shopping</option>
                         <option value="Other">📦 Other</option>
                     </select>
-                    <button id="clearAllBtn" class="btn btn-danger">Clear All Expenses</button>
                 </div>
-            </section>
-
-            <!-- Category Breakdown -->
-            <section class="category-breakdown">
-                <h2>Category Breakdown</h2>
-                <div id="categoryBars"></div>
+                <div class="action-buttons">
+                    <button id="exportBtn" class="btn-secondary">📥 Export</button>
+                    <button id="clearAllBtn" class="btn-danger">🗑️ Clear All</button>
+                </div>
             </section>
 
             <!-- Expenses List -->
-            <section class="expenses-list-section">
-                <h2>Expense List</h2>
-                <div id="expensesList" class="expenses-list">
-                    <p class="no-expenses">No expenses yet. Add your first expense above!</p>
+            <section class="expenses-section">
+                <div class="section-header">
+                    <h2>Recent Expenses</h2>
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="list">📋</button>
+                        <button class="view-btn" data-view="grid">📱</button>
+                    </div>
+                </div>
+                
+                <div id="expensesList" class="expenses-container">
+                    <div class="empty-state">
+                        <div class="empty-icon">💸</div>
+                        <h3>No expenses yet</h3>
+                        <p>Start tracking your expenses by adding your first one!</p>
+                        <button class="btn-primary" onclick="document.getElementById('title').focus()">Add First Expense</button>
+                    </div>
                 </div>
             </section>
         </main>
+
+        <!-- Floating Action Button -->
+        <button class="fab" id="fabBtn">
+            <span class="fab-icon">➕</span>
+        </button>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <script src="script.js?v=5"></script>
 </body>
 </html>
+
