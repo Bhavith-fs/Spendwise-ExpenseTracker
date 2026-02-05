@@ -7,95 +7,210 @@ class ExpenseTracker {
     }
 
     init() {
+        console.log('Initializing ExpenseTracker...');
+        
+        // Hide loading overlay if it exists
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        if (loadingOverlay) {
+            loadingOverlay.classList.remove('active');
+            loadingOverlay.style.display = 'none';
+        }
+        
         this.loadExpenses();
+        console.log('Loaded expenses:', this.expenses.length);
         this.setupEventListeners();
         this.setDefaultDate();
         this.renderExpenses();
         this.updateSummary();
         this.updateCategoryBreakdown();
         this.loadDarkMode();
+        console.log('ExpenseTracker initialized successfully');
     }
 
     setupEventListeners() {
-        // Form submission
-        document.getElementById('expenseForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.addExpense();
-        });
+        // Form submission - handle both form submit and button click
+        const expenseForm = document.getElementById('expenseForm');
+        if (expenseForm) {
+            expenseForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.addExpense();
+                return false;
+            });
+        }
+
+        // Add expense button click
+        const addExpenseBtn = document.getElementById('addExpenseBtn');
+        if (addExpenseBtn) {
+            addExpenseBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.addExpense();
+                return false;
+            });
+        }
 
         // Category filter
-        document.getElementById('categoryFilter').addEventListener('change', (e) => {
-            this.currentFilter = e.target.value;
-            this.renderExpenses();
-        });
+        const categoryFilter = document.getElementById('categoryFilter');
+        if (categoryFilter) {
+            categoryFilter.addEventListener('change', (e) => {
+                this.currentFilter = e.target.value;
+                this.renderExpenses();
+            });
+        }
 
         // Clear all expenses
-        document.getElementById('clearAllBtn').addEventListener('click', () => {
-            if (confirm('Are you sure you want to delete all expenses? This action cannot be undone.')) {
-                this.clearAllExpenses();
-            }
-        });
+        const clearAllBtn = document.getElementById('clearAllBtn');
+        if (clearAllBtn) {
+            clearAllBtn.addEventListener('click', () => {
+                if (confirm('Are you sure you want to delete all expenses? This action cannot be undone.')) {
+                    this.clearAllExpenses();
+                }
+            });
+        }
 
         // Dark mode toggle
-        document.getElementById('darkModeToggle').addEventListener('click', () => {
-            this.toggleDarkMode();
-        });
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', () => {
+                this.toggleDarkMode();
+            });
+        }
+
+        // Amount input validation - prevent dollar signs and format input
+        const amountInput = document.getElementById('amount');
+        if (amountInput) {
+            // Clean input on change - remove any non-numeric characters except decimal
+            amountInput.addEventListener('input', (e) => {
+                let value = e.target.value;
+                // Remove dollar signs, commas, and other non-numeric characters except decimal point
+                value = value.replace(/[^0-9.]/g, '');
+                // Ensure only one decimal point
+                const parts = value.split('.');
+                if (parts.length > 2) {
+                    value = parts[0] + '.' + parts.slice(1).join('');
+                }
+                // Update the value if it changed
+                if (e.target.value !== value) {
+                    e.target.value = value;
+                }
+                // Clear any validation errors when user types
+                e.target.setCustomValidity('');
+            });
+
+            // Handle paste events - clean pasted content
+            amountInput.addEventListener('paste', (e) => {
+                setTimeout(() => {
+                    let value = e.target.value;
+                    value = value.replace(/[^0-9.]/g, '');
+                    const parts = value.split('.');
+                    if (parts.length > 2) {
+                        value = parts[0] + '.' + parts.slice(1).join('');
+                    }
+                    e.target.value = value;
+                }, 0);
+            });
+
+            // Prevent invalid characters on keypress (but allow number input to work normally)
+            amountInput.addEventListener('keypress', (e) => {
+                const char = String.fromCharCode(e.which);
+                // Allow numbers, decimal point, and control keys
+                if (!/[0-9.]/.test(char) && !e.ctrlKey && !e.metaKey) {
+                    // Block dollar sign specifically
+                    if (e.which === 36 || char === '$') {
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+            });
+        }
     }
 
     setDefaultDate() {
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('date').value = today;
+        const dateInput = document.getElementById('date');
+        if (dateInput) {
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.value = today;
+        }
     }
 
     addExpense() {
-        const title = document.getElementById('title').value.trim();
-        const amount = parseFloat(document.getElementById('amount').value);
-        const category = document.getElementById('category').value;
-        const date = document.getElementById('date').value;
+        try {
+            console.log('Adding expense...');
+            const title = document.getElementById('title').value.trim();
+            const amountField = document.getElementById('amount');
+            // Strip dollar signs, commas, and other non-numeric characters except decimal point
+            const amountInput = amountField.value.replace(/[^0-9.]/g, '');
+            const amount = parseFloat(amountInput);
+            const category = document.getElementById('category').value;
+            const date = document.getElementById('date').value;
 
-        // Validation
-        if (!amount || amount <= 0) {
-            this.showError('Please enter a valid amount greater than 0');
-            return;
+            console.log('Form values:', { title, amount, category, date });
+
+            // Validation
+            if (!amountField.value.trim() || !amount || amount <= 0 || isNaN(amount)) {
+                amountField.focus();
+                amountField.setCustomValidity('Please enter a valid amount greater than 0');
+                amountField.reportValidity();
+                this.showError('Please enter a valid amount greater than 0');
+                return false;
+            } else {
+                amountField.setCustomValidity('');
+            }
+
+            if (!category) {
+                this.showError('Please select a category');
+                return false;
+            }
+
+            if (!date) {
+                this.showError('Please select a date');
+                return false;
+            }
+
+            // Create expense object
+            const expense = {
+                id: Date.now().toString(),
+                title: title || 'Untitled Expense',
+                amount: amount,
+                category: category,
+                date: date,
+                timestamp: new Date().toISOString()
+            };
+
+            console.log('Created expense:', expense);
+
+            // Add to expenses array
+            this.expenses.unshift(expense);
+            console.log('Total expenses:', this.expenses.length);
+
+            // Save to localStorage
+            this.saveExpenses();
+            console.log('Saved to localStorage');
+
+            // Reset form
+            const form = document.getElementById('expenseForm');
+            if (form) {
+                form.reset();
+            }
+            this.setDefaultDate();
+
+            // Update UI
+            console.log('Updating UI...');
+            this.renderExpenses();
+            this.updateSummary();
+            this.updateCategoryBreakdown();
+            console.log('UI updated');
+
+            // Show success message
+            this.showSuccess('Expense added successfully!');
+            
+            return false; // Prevent form submission
+        } catch (error) {
+            console.error('Error adding expense:', error);
+            this.showError('An error occurred while adding the expense. Please try again.');
+            return false;
         }
-
-        if (!category) {
-            this.showError('Please select a category');
-            return;
-        }
-
-        if (!date) {
-            this.showError('Please select a date');
-            return;
-        }
-
-        // Create expense object
-        const expense = {
-            id: Date.now().toString(),
-            title: title || 'Untitled Expense',
-            amount: amount,
-            category: category,
-            date: date,
-            timestamp: new Date().toISOString()
-        };
-
-        // Add to expenses array
-        this.expenses.unshift(expense);
-
-        // Save to localStorage
-        this.saveExpenses();
-
-        // Reset form
-        document.getElementById('expenseForm').reset();
-        this.setDefaultDate();
-
-        // Update UI
-        this.renderExpenses();
-        this.updateSummary();
-        this.updateCategoryBreakdown();
-
-        // Show success message
-        this.showSuccess('Expense added successfully!');
     }
 
     deleteExpense(id) {
@@ -119,6 +234,7 @@ class ExpenseTracker {
     }
 
     getFilteredExpenses() {
+        // This method is now handled directly in renderExpenses for better sorting
         if (this.currentFilter === 'all') {
             return this.expenses;
         }
@@ -127,35 +243,67 @@ class ExpenseTracker {
 
     renderExpenses() {
         const expensesList = document.getElementById('expensesList');
-        const filteredExpenses = this.getFilteredExpenses();
-
-        if (filteredExpenses.length === 0) {
-            expensesList.innerHTML = '<p class="no-expenses">No expenses found. Add your first expense above!</p>';
+        if (!expensesList) {
+            console.error('expensesList element not found');
             return;
         }
 
-        const expensesHTML = filteredExpenses.map(expense => `
-            <div class="expense-item">
-                <div class="expense-details">
-                    <div class="expense-title">${this.escapeHtml(expense.title)}</div>
-                    <div class="expense-meta">
-                        <span class="expense-amount">$${expense.amount.toFixed(2)}</span>
-                        <span class="expense-category">${this.getCategoryIcon(expense.category)} ${expense.category}</span>
-                        <span class="expense-date">${this.formatDate(expense.date)}</span>
+        // Sort expenses by date (newest first) and then by timestamp
+        const sortedExpenses = [...this.expenses].sort((a, b) => {
+            const dateCompare = new Date(b.date) - new Date(a.date);
+            if (dateCompare !== 0) return dateCompare;
+            return new Date(b.timestamp) - new Date(a.timestamp);
+        });
+
+        const filteredExpenses = this.currentFilter === 'all' 
+            ? sortedExpenses 
+            : sortedExpenses.filter(expense => expense.category === this.currentFilter);
+
+        if (filteredExpenses.length === 0) {
+            expensesList.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">💸</div>
+                    <h3>No expenses yet</h3>
+                    <p>Start tracking your expenses by adding your first one!</p>
+                    <button class="btn-primary" onclick="document.getElementById('title').focus()">Add First Expense</button>
+                </div>
+            `;
+            return;
+        }
+
+        const expensesHTML = filteredExpenses.map(expense => {
+            const deleteHandler = `expenseTracker.deleteExpense('${expense.id}')`;
+            return `
+                <div class="expense-item">
+                    <div class="expense-details">
+                        <div class="expense-title">${this.escapeHtml(expense.title)}</div>
+                        <div class="expense-meta">
+                            <span class="expense-amount">$${expense.amount.toFixed(2)}</span>
+                            <span class="expense-category">${this.getCategoryIcon(expense.category)} ${expense.category}</span>
+                            <span class="expense-date">${this.formatDate(expense.date)}</span>
+                        </div>
+                    </div>
+                    <div class="expense-actions">
+                        <button class="btn btn-delete" onclick="${deleteHandler}">
+                            Delete
+                        </button>
                     </div>
                 </div>
-                <div class="expense-actions">
-                    <button class="btn btn-delete" onclick="expenseTracker.deleteExpense('${expense.id}')">
-                        Delete
-                    </button>
-                </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
 
         expensesList.innerHTML = expensesHTML;
     }
 
     updateSummary() {
+        const todayTotalEl = document.getElementById('todayTotal');
+        const monthlyTotalEl = document.getElementById('monthlyTotal');
+        
+        if (!todayTotalEl || !monthlyTotalEl) {
+            console.warn('Summary elements not found');
+            return;
+        }
+
         const today = new Date().toISOString().split('T')[0];
         const currentMonth = new Date().getMonth();
         const currentYear = new Date().getFullYear();
@@ -171,8 +319,8 @@ class ExpenseTracker {
             })
             .reduce((sum, expense) => sum + expense.amount, 0);
 
-        document.getElementById('todayTotal').textContent = `$${todayTotal.toFixed(2)}`;
-        document.getElementById('monthlyTotal').textContent = `$${monthlyTotal.toFixed(2)}`;
+        todayTotalEl.textContent = `$${todayTotal.toFixed(2)}`;
+        monthlyTotalEl.textContent = `$${monthlyTotal.toFixed(2)}`;
     }
 
     updateCategoryBreakdown() {
@@ -213,10 +361,54 @@ class ExpenseTracker {
 
         const categoryBarsElement = document.getElementById('categoryBars');
         
+        if (!categoryBarsElement) {
+            console.warn('categoryBars element not found');
+            return;
+        }
+        
         if (categoryBarsHTML) {
             categoryBarsElement.innerHTML = `<div class="category-bars">${categoryBarsHTML}</div>`;
         } else {
             categoryBarsElement.innerHTML = '<p class="no-expenses">No expenses to display</p>';
+        }
+
+        // Update insights
+        this.updateInsights(categoryTotals);
+    }
+
+    updateInsights(categoryTotals) {
+        // Update highest category
+        const highestCategoryElement = document.getElementById('highestCategory');
+        if (highestCategoryElement) {
+            const highestCategoryEntry = Object.entries(categoryTotals)
+                .filter(([_, amount]) => amount > 0)
+                .sort(([_, a], [__, b]) => b - a)[0];
+            
+            if (highestCategoryEntry) {
+                const [category, amount] = highestCategoryEntry;
+                highestCategoryElement.textContent = `${this.getCategoryIcon(category)} ${category} ($${amount.toFixed(2)})`;
+            } else {
+                highestCategoryElement.textContent = '-';
+            }
+        }
+
+        // Update average daily spend
+        const avgDailySpendElement = document.getElementById('avgDailySpend');
+        if (avgDailySpendElement) {
+            if (this.expenses.length > 0) {
+                const totalAmount = this.expenses.reduce((sum, expense) => sum + expense.amount, 0);
+                const uniqueDates = new Set(this.expenses.map(expense => expense.date));
+                const avgDaily = uniqueDates.size > 0 ? totalAmount / uniqueDates.size : 0;
+                avgDailySpendElement.textContent = `$${avgDaily.toFixed(2)}`;
+            } else {
+                avgDailySpendElement.textContent = '$0.00';
+            }
+        }
+
+        // Update total expenses count
+        const totalExpensesElement = document.getElementById('totalExpenses');
+        if (totalExpensesElement) {
+            totalExpensesElement.textContent = this.expenses.length.toString();
         }
     }
 
@@ -337,42 +529,55 @@ class ExpenseTracker {
     }
 }
 
-// Initialize the app
-const expenseTracker = new ExpenseTracker();
+// Initialize the app when DOM is ready
+let expenseTracker;
 
-// Add some sample data for demonstration (optional)
-if (expenseTracker.expenses.length === 0) {
-    const sampleExpenses = [
-        {
-            id: '1',
-            title: 'Morning Coffee',
-            amount: 4.50,
-            category: 'Food',
-            date: new Date().toISOString().split('T')[0],
-            timestamp: new Date().toISOString()
-        },
-        {
-            id: '2',
-            title: 'Uber Ride',
-            amount: 12.00,
-            category: 'Travel',
-            date: new Date().toISOString().split('T')[0],
-            timestamp: new Date().toISOString()
-        },
-        {
-            id: '3',
-            title: 'Electric Bill',
-            amount: 85.00,
-            category: 'Bills',
-            date: new Date(Date.now() - 86400000).toISOString().split('T')[0],
-            timestamp: new Date(Date.now() - 86400000).toISOString()
-        }
-    ];
+function initializeApp() {
+    expenseTracker = new ExpenseTracker();
     
-    // Uncomment the line below to add sample data on first load
-    // expenseTracker.expenses = sampleExpenses;
-    // expenseTracker.saveExpenses();
-    // expenseTracker.renderExpenses();
-    // expenseTracker.updateSummary();
-    // expenseTracker.updateCategoryBreakdown();
+    // Add some sample data for demonstration (optional)
+    // Uncomment the lines below to add sample data on first load
+    /*
+    if (expenseTracker.expenses.length === 0) {
+        const sampleExpenses = [
+            {
+                id: '1',
+                title: 'Morning Coffee',
+                amount: 4.50,
+                category: 'Food',
+                date: new Date().toISOString().split('T')[0],
+                timestamp: new Date().toISOString()
+            },
+            {
+                id: '2',
+                title: 'Uber Ride',
+                amount: 12.00,
+                category: 'Travel',
+                date: new Date().toISOString().split('T')[0],
+                timestamp: new Date().toISOString()
+            },
+            {
+                id: '3',
+                title: 'Electric Bill',
+                amount: 85.00,
+                category: 'Bills',
+                date: new Date(Date.now() - 86400000).toISOString().split('T')[0],
+                timestamp: new Date(Date.now() - 86400000).toISOString()
+            }
+        ];
+        expenseTracker.expenses = sampleExpenses;
+        expenseTracker.saveExpenses();
+        expenseTracker.renderExpenses();
+        expenseTracker.updateSummary();
+        expenseTracker.updateCategoryBreakdown();
+    }
+    */
 }
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+    // DOM is already ready
+    initializeApp();
+}
+
