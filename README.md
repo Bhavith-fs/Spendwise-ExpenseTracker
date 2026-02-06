@@ -2,7 +2,7 @@
 
 <div align="center">
 
-A simple, clean, and beginner-friendly daily expense tracking web app built using HTML, CSS, and Vanilla JavaScript.
+A simple, clean, and beginner-friendly daily expense tracking web app built using HTML, CSS, and Vanilla JavaScript. 
 
 🌐 **Live Demo:**  
 👉 https://bhavith-fs.github.io/Spendwise-ExpenseTracker/
